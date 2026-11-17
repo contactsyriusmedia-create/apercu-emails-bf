@@ -1,82 +1,123 @@
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Black Friday Ohmytea</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
 <style>
-/* Aperçu des 10 e-mails en français, pensé pour le téléphone : onglets fixes en haut, e-mail en pleine largeur */
-:root{--bg:#efe8dc;--panel:#fbf8f1;--ink:#231a10;--muted:#7d6a56;--line:#ddd1bf;--on:#231a10;--on-fg:#fffdf4;--accent:#b5705c;
+/* Aperçu mobile des 10 e-mails : barre sombre = navigation, zone grise = l'e-mail tel qu'il sera reçu.
+   Changer d'e-mail : onglets, boutons du bas, ou glisser à gauche / à droite. */
+:root{--nav:#231a10;--nav-fg:#fffdf4;--nav-mut:#cbb8a6;--gold:#d8b98a;--stage:#f6f1e8;--stage-fg:#4a4036;--frame:#cfd6de;--frame-fg:#3c4652;--card:#fffdf4;--ink:#231a10;--muted:#7d6a56;--line:#ddd1bf;
 --serif:"Instrument Serif",Georgia,serif;--sans:Figtree,"Helvetica Neue",Arial,sans-serif}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a140e;--panel:#241c14;--ink:#f1e9dc;--muted:#b09c86;--line:#3a2f24;--on:#f1e9dc;--on-fg:#231a10;--accent:#e3a08c;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1a140e;--panel:#241c14;--ink:#f1e9dc;--muted:#b09c86;--line:#3a2f24;--on:#f1e9dc;--on-fg:#231a10;--accent:#e3a08c;color-scheme:dark}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;-webkit-text-size-adjust:100%}
-header{padding:20px 16px 6px;max-width:640px;margin:0 auto}
-h1{font-family:var(--serif);font-weight:400;font-size:32px;line-height:1.05;margin:0}
-h1 em{font-style:italic}
-.sub{color:var(--muted);margin:6px 0 0;line-height:1.45;font-size:14px}
-.tabs{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;gap:6px;overflow-x:auto;padding:10px 16px;scrollbar-width:none;border-bottom:1px solid var(--line)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--nav:#120c07;--stage:#2b2520;--stage-fg:#d9cdbd;--card:#241c14;--ink:#f1e9dc;--muted:#b09c86;--line:#3a2f24;color-scheme:dark}}
+:root[data-theme="dark"]{--nav:#120c07;--stage:#2b2520;--stage-fg:#d9cdbd;--card:#241c14;--ink:#f1e9dc;--muted:#b09c86;--line:#3a2f24;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{background:var(--stage);color:var(--ink);font-family:var(--sans);font-size:15px;-webkit-text-size-adjust:100%;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+/* —— barre du haut (navigation, sombre) —— */
+.top{position:sticky;top:0;z-index:10;background:var(--nav);color:var(--nav-fg);padding:12px 0 10px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.top .row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:0 16px;max-width:640px;margin:0 auto}
+.top h1{font-family:var(--serif);font-weight:400;font-size:24px;line-height:1;margin:0}
+.top h1 em{color:var(--gold)}
+.count{font-size:13px;font-weight:700;color:var(--gold);white-space:nowrap}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 16px 2px;scrollbar-width:none;max-width:640px;margin:0 auto;scroll-behavior:smooth}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:0 0 auto;font:inherit;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:40px;padding:8px 13px;cursor:pointer;white-space:nowrap}
-.tab small{font-weight:500;color:var(--muted);margin-left:4px}
-.tab[aria-pressed="true"]{background:var(--on);color:var(--on-fg);border-color:var(--on)}
-.tab[aria-pressed="true"] small{color:inherit;opacity:.8}
-.tab:focus-visible,.nav button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-main{max-width:640px;margin:0 auto;padding:12px 16px 30px}
-.meta{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px;line-height:1.45}
-.meta .t{font-family:var(--serif);font-size:22px;line-height:1.1;margin:0 0 4px}
-.meta .d{font-size:13px;color:var(--muted)}
-.meta .o{font-size:14px;margin-top:6px}
-.meta .o b{font-weight:600}
-.frame{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#f1eadd}
-iframe{display:block;width:100%;height:1600px;border:0;background:#f1eadd}
-.nav{display:flex;gap:10px;margin-top:14px}
-.nav button{flex:1;font:inherit;font-weight:600;font-size:14px;border:0;border-radius:40px;padding:13px 10px;background:var(--on);color:var(--on-fg);cursor:pointer}
-.nav button[disabled]{opacity:.35;cursor:default}
+.tab{flex:0 0 auto;font:inherit;font-size:13px;font-weight:600;border:1px solid rgba(255,253,244,.22);background:transparent;color:var(--nav-fg);border-radius:40px;padding:7px 12px;cursor:pointer;white-space:nowrap}
+.tab[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#231a10}
+.tab:focus-visible,.bar button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+/* —— infos de l'e-mail —— */
+main{max-width:640px;margin:0 auto;padding:14px 12px 10px}
+.info{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;line-height:1.45}
+.info .when{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.info .t{font-family:var(--serif);font-size:26px;line-height:1.05;margin:4px 0 6px}
+.info .who{font-size:13px;color:var(--muted)}
+.info .subj{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:14px}
+.info .subj span{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+/* —— zone e-mail (grise, cadre) —— */
+.wrap{background:var(--frame);border-radius:22px;padding:10px 8px 14px;margin-top:16px}
+.label{display:flex;align-items:center;gap:8px;margin:4px 6px 10px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--frame-fg)}
+.label:before,.label:after{content:"";flex:1;height:1px;background:currentColor;opacity:.25}
+.mail{background:#f1eadd;border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(35,26,16,.18);transition:opacity .18s ease,transform .18s ease}
+.mail.out-l{opacity:0;transform:translateX(-24px)}.mail.out-r{opacity:0;transform:translateX(24px)}
+iframe{display:block;width:100%;height:1400px;border:0;background:#f1eadd}
+.end{text-align:center;color:var(--frame-fg);font-size:13px;margin:12px 0 0}
+/* —— barre du bas fixe —— */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--nav);padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 14px rgba(0,0,0,.2)}
+.bar .in{display:flex;gap:10px;align-items:center;max-width:640px;margin:0 auto}
+.bar button{flex:1;font:inherit;font-size:15px;font-weight:700;border:0;border-radius:40px;padding:14px 8px;cursor:pointer}
+#prev{background:transparent;color:var(--nav-fg);border:1px solid rgba(255,253,244,.3)}
+#next{background:var(--gold);color:#231a10}
+.bar button[disabled]{opacity:.3;cursor:default}
+/* —— indice glisser —— */
+.hint{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:11;background:rgba(35,26,16,.92);color:#fffdf4;font-size:14px;font-weight:600;padding:10px 16px;border-radius:40px;white-space:nowrap;transition:opacity .4s ease;pointer-events:none}
+.hint.hide{opacity:0}
 </style>
 
-<header>
-  <h1>E-mails <em>Black Friday</em></h1>
-  <p class="sub">Les 10 e-mails de la campagne, traduits en français. Les clientes les recevront en allemand. Touche un onglet pour passer d'un e-mail à l'autre.</p>
-</header>
-<nav class="tabs" id="tabs" aria-label="Les 10 e-mails"></nav>
+<div class="top">
+  <div class="row"><h1>E-mails <em>Black Friday</em></h1><span class="count" id="count">1 / 10</span></div>
+  <nav class="tabs" id="tabs" aria-label="Choisir un e-mail"></nav>
+</div>
+
 <main>
-  <div class="meta" id="meta"></div>
-  <div class="frame"><iframe id="view" title="Aperçu de l'e-mail" scrolling="no"></iframe></div>
-  <div class="nav"><button type="button" id="prev">← Précédent</button><button type="button" id="next">Suivant →</button></div>
+  <section class="info" id="info" aria-live="polite"></section>
+  <div class="wrap">
+    <div class="label">📩 L'e-mail tel qu'il sera reçu</div>
+    <div class="mail" id="mail"><iframe id="view" title="Aperçu de l'e-mail" scrolling="no"></iframe></div>
+    <p class="end">Fin de l'e-mail · glisse ou touche « Suivant »</p>
+  </div>
 </main>
+
+<div class="bar"><div class="in">
+  <button type="button" id="prev">‹ Précédent</button>
+  <button type="button" id="next">Suivant ›</button>
+</div></div>
+<div class="hint" id="hint">👆 Glisse à gauche ou à droite pour changer d'e-mail</div>
 
 <script>
 const M=[
- {f:1,d:"Mer. 18/11",h:"19 h",who:"Clientes abonnées",t:"Réassort + accès VIP",o:"Ton stock arrive bientôt à sa fin ? 🍵"},
- {f:2,d:"Ven. 20/11",h:"19 h",who:"Clientes abonnées",t:"Ventre après 40 ans",o:"Pourquoi ton ventre change après 40 ans"},
- {f:3,d:"Dim. 22/11",h:"19 h",who:"VIP",t:"Teaser VIP",o:"Mardi, 8 h. Rien que pour toi. 💌"},
- {f:4,d:"Mar. 24/11",h:"8 h",who:"VIP",t:"Ouverture VIP",o:"Black Friday : ton accès VIP est ouvert 🖤"},
- {f:5,d:"Mer. 25/11",h:"19 h",who:"VIP qui n'ont pas acheté",t:"Rappel VIP · coffret Premium",o:"Le rituel complet – réservé aux VIP 🖤"},
- {f:6,d:"Ven. 27/11",h:"8 h",who:"Toutes les abonnées",t:"Black Friday pour toutes",o:"BLACK FRIDAY : jusqu'à 3 sachets offerts 🖤"},
- {f:8,d:"Lun. 30/11",h:"8 h",who:"Celles qui n'ont pas acheté",t:"Cyber Monday",o:"Cyber Monday : plus de thé, offert"},
- {f:9,d:"Jeu. 3/12",h:"19 h",who:"Celles qui n'ont pas acheté",t:"Plus que 3 jours",o:"Plus que 3 jours de Black Friday ⏳"},
- {f:10,d:"Dim. 6/12",h:"18 h",who:"Celles qui n'ont pas acheté",t:"Dernière chance",o:"⏳ Aujourd'hui seulement : jusqu'à 3 sachets offerts"},
- {f:7,d:"Mar. 8/12",h:"19 h",who:"Toutes les abonnées",t:"Cadeau de Noël",o:"Le cadeau de Noël parfait 🎁"}
+ {f:1,d:"Mercredi 18/11 · 19 h",who:"Pour : les clientes abonnées",t:"Réassort + accès VIP",o:"Ton stock arrive bientôt à sa fin ? 🍵"},
+ {f:2,d:"Vendredi 20/11 · 19 h",who:"Pour : les clientes abonnées",t:"Ventre après 40 ans",o:"Pourquoi ton ventre change après 40 ans"},
+ {f:3,d:"Dimanche 22/11 · 19 h",who:"Pour : les VIP",t:"Teaser VIP",o:"Mardi, 8 h. Rien que pour toi. 💌"},
+ {f:4,d:"Mardi 24/11 · 8 h",who:"Pour : les VIP",t:"Ouverture VIP",o:"Black Friday : ton accès VIP est ouvert 🖤"},
+ {f:5,d:"Mercredi 25/11 · 19 h",who:"Pour : les VIP qui n'ont pas encore acheté",t:"Rappel VIP · coffret Premium",o:"Le rituel complet – réservé aux VIP 🖤"},
+ {f:6,d:"Vendredi 27/11 · 8 h",who:"Pour : toutes les abonnées",t:"Black Friday pour toutes",o:"BLACK FRIDAY : jusqu'à 3 sachets offerts 🖤"},
+ {f:8,d:"Lundi 30/11 · 8 h",who:"Pour : celles qui n'ont pas encore acheté",t:"Cyber Monday",o:"Cyber Monday : plus de thé, offert"},
+ {f:9,d:"Jeudi 3/12 · 19 h",who:"Pour : celles qui n'ont pas encore acheté",t:"Plus que 3 jours",o:"Plus que 3 jours de Black Friday ⏳"},
+ {f:10,d:"Dimanche 6/12 · 18 h",who:"Pour : celles qui n'ont pas encore acheté",t:"Dernière chance",o:"⏳ Aujourd'hui seulement : jusqu'à 3 sachets offerts"},
+ {f:7,d:"Mardi 8/12 · 19 h",who:"Pour : toutes les abonnées",t:"Cadeau de Noël",o:"Le cadeau de Noël parfait 🎁"}
 ];
-let i=0; const cache={};
-const tabs=document.getElementById("tabs"), view=document.getElementById("view");
-M.forEach((m,k)=>{const b=document.createElement("button");b.type="button";b.className="tab";
- b.innerHTML=`${k+1}. ${m.t}<small>${m.d}</small>`;b.addEventListener("click",()=>{i=k;go(true)});tabs.appendChild(b)});
-document.getElementById("prev").addEventListener("click",()=>{if(i>0){i--;go(true)}});
-document.getElementById("next").addEventListener("click",()=>{if(i<M.length-1){i++;go(true)}});
-function fit(){try{const d=view.contentDocument;if(!d||!d.body)return;const t=d.querySelector("table.w")||d.body;view.style.height=Math.max(400,Math.ceil(t.getBoundingClientRect().height)+2)+"px"}catch(_){}}
-view.addEventListener("load",()=>{fit();try{view.contentDocument.querySelectorAll("img").forEach(im=>im.addEventListener("load",fit))}catch(_){} setTimeout(fit,400)});
-async function go(scroll){
- const m=M[i];
- [...tabs.children].forEach((b,k)=>b.setAttribute("aria-pressed",String(k===i)));
- const cur=tabs.children[i]; if(cur) cur.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});
- document.getElementById("meta").innerHTML=`<p class="t">${i+1}. ${m.t}</p><div class="d">${m.d} à ${m.h} · ${m.who}</div><div class="o">Objet : <b>${m.o}</b></div>`;
- document.getElementById("prev").disabled=i===0; document.getElementById("next").disabled=i===M.length-1;
- const k="bf_"+String(m.f).padStart(2,"0")+"_fr.html";
- try{if(!cache[k]){const r=await fetch(k);cache[k]=await r.text()}view.srcdoc=cache[k]}
- catch(e){view.srcdoc="<p style='font-family:sans-serif;padding:20px'>Impossible de charger cet e-mail. Recharge la page.</p>"}
- if(scroll) window.scrollTo({top:0,behavior:"smooth"});
-}
+let i=0; const cache={}; const N=M.length;
+const tabs=document.getElementById("tabs"), view=document.getElementById("view"), mail=document.getElementById("mail");
+M.forEach((m,k)=>{const b=document.createElement("button");b.type="button";b.className="tab";b.textContent=`${k+1}. ${m.t}`;
+ b.addEventListener("click",()=>show(k));tabs.appendChild(b)});
+document.getElementById("prev").addEventListener("click",()=>show(i-1));
+document.getElementById("next").addEventListener("click",()=>show(i+1));
+document.addEventListener("keydown",e=>{if(e.key==="ArrowRight")show(i+1);if(e.key==="ArrowLeft")show(i-1)});
+
+/* glisser : gauche = suivant, droite = précédent (sur la page et dans l'e-mail) */
+function swipe(target){let x0=null,y0=null,t0=0;
+ target.addEventListener("touchstart",e=>{const t=e.touches[0];x0=t.clientX;y0=t.clientY;t0=Date.now()},{passive:true});
+ target.addEventListener("touchend",e=>{if(x0===null)return;const t=e.changedTouches[0];const dx=t.clientX-x0,dy=t.clientY-y0;x0=null;
+  if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.4&&Date.now()-t0<800){show(dx<0?i+1:i-1)}},{passive:true});}
+swipe(document);
+
+function fit(){try{const d=view.contentDocument;if(!d||!d.body)return;const t=d.querySelector("table.w")||d.body;
+ view.style.height=Math.max(400,Math.ceil(t.getBoundingClientRect().height)+2)+"px"}catch(_){}}
+view.addEventListener("load",()=>{fit();try{const d=view.contentDocument;d.querySelectorAll("img").forEach(im=>im.addEventListener("load",fit));
+ d.querySelectorAll("a").forEach(a=>a.addEventListener("click",e=>e.preventDefault()));swipe(d)}catch(_){}
+ setTimeout(fit,400);mail.classList.remove("out-l","out-r")});
 window.addEventListener("resize",fit);
-go(false);
+
+async function show(k,first){
+ if(k<0||k>=N)return; const dir=k>i?"out-l":"out-r"; i=k; const m=M[i];
+ [...tabs.children].forEach((b,j)=>b.setAttribute("aria-pressed",String(j===i)));
+ const cur=tabs.children[i]; if(cur) tabs.scrollTo({left:cur.offsetLeft-(tabs.clientWidth-cur.offsetWidth)/2,behavior:first?"auto":"smooth"});
+ document.getElementById("count").textContent=`${i+1} / ${N}`;
+ document.getElementById("info").innerHTML=`<span class="when">${m.d}</span><p class="t">${i+1}. ${m.t}</p><div class="who">${m.who}</div><div class="subj"><span>Objet de l'e-mail</span><b>${m.o}</b></div>`;
+ document.getElementById("prev").disabled=i===0; document.getElementById("next").disabled=i===N-1;
+ if(!first){mail.classList.add(dir);window.scrollTo({top:0,behavior:"smooth"})}
+ const f="bf_"+String(m.f).padStart(2,"0")+"_fr.html";
+ try{if(!cache[f]){const r=await fetch(f);cache[f]=await r.text()}view.srcdoc=cache[f]}
+ catch(e){view.srcdoc="<p style='font-family:sans-serif;padding:20px'>Impossible de charger cet e-mail. Recharge la page.</p>";mail.classList.remove("out-l","out-r")}
+}
+show(0,true);
+setTimeout(()=>document.getElementById("hint").classList.add("hide"),4000);
 </script>
